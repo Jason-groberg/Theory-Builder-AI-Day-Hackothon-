@@ -19,7 +19,7 @@ no accounts. Everything serves the core loop below.
 | Math input | Visual equation editor (no LaTeX knowledge needed) |
 | Solution reveal | Unlocks only after 3 *different* attempts |
 | Tutor AI | Claude, via `ANTHROPIC_API_KEY` in the environment |
-| Visual style | Brutalist: monospace type, heavy borders, hard shadows, no rounding |
+| Visual style | Brutalist: Quantico (Google Font), heavy borders, hard shadows, no rounding |
 | Extras | Interactive visualizations, progressive hint ladder, skill map, theory primers |
 
 ## The core loop

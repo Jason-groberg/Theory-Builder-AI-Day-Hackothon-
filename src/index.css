@@ -9,7 +9,7 @@
   --line: 3px solid var(--ink);
   --shadow: 6px 6px 0 var(--ink);
 
-  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, 'Courier New', monospace;
+  font-family: 'Quantico', ui-monospace, Menlo, Consolas, sans-serif;
   line-height: 1.45;
   color: var(--ink);
   background: var(--bg);
@@ -45,7 +45,7 @@ body {
   background: var(--ink);
   color: var(--bg);
   font-size: 1.05rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -76,12 +76,11 @@ body {
 
 .hero h1 {
   margin: 0 0 20px;
-  font-family: 'Arial Black', 'Helvetica Neue', Impact, sans-serif;
   font-size: clamp(1.7rem, 9vw, 5rem);
   overflow-wrap: anywhere;
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
 }
 
@@ -151,7 +150,7 @@ body {
 .card h2 {
   margin: 0 0 8px;
   font-size: 1.15rem;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
