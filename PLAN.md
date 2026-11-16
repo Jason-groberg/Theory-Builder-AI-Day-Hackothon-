@@ -109,7 +109,7 @@ Problem style per category, to keep things idea-driven:
 
 1. **Scaffold** — Vite app, Netlify config, `.env` ignored, deploy a hello page.
 2. **Content** — schema, then 30 seed problems with hints, solutions, rubrics; 5 primers per category as needed.
-3. **Problem workspace** — category picker, problem view, step editor with MathLive.
+3. **Problem workspace** — done: problem page, step editor with MathLive, hint ladder, saved drafts.
 4. **Tutor** — chat + attempt review functions, streaming UI, 3-attempt reveal.
 5. **Hint ladder + skill map** — localStorage progress, mastery by topic/technique.
 6. **Visualizations** — one or two strong widgets per category (linear map on the plane, distribution sampler, secant→tangent, a draggable geometric construction, sampling-distribution simulator).

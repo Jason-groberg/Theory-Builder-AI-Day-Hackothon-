@@ -1,6 +1,7 @@
 // Checks the seed content is complete and consistent. Run with: npm run validate
 import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
+import katex from 'katex'
 import { categories } from '../src/content/categories.ts'
 import { problems } from '../src/content/problems/index.ts'
 import { techniques } from '../src/content/techniques.ts'
@@ -16,6 +17,17 @@ function mathBalanced(text: string): boolean {
   return withoutDisplay.every((part) => (part.match(/\$/g) ?? []).length % 2 === 0)
 }
 
+/** Every formula must be valid LaTeX that KaTeX can render. */
+function checkMath(id: string, text: string) {
+  for (const m of text.matchAll(/\$\$([\s\S]+?)\$\$|\$([^$]+?)\$/g)) {
+    try {
+      katex.renderToString(m[1] ?? m[2], { throwOnError: true, strict: 'error' })
+    } catch (e) {
+      fail(`${id}: bad LaTeX "${(m[1] ?? m[2]).slice(0, 40)}": ${(e as Error).message}`)
+    }
+  }
+}
+
 const ids = new Set<string>()
 for (const p of problems) {
   if (ids.has(p.id)) fail(`${p.id}: duplicate problem id`)
@@ -27,6 +39,7 @@ for (const p of problems) {
   for (const text of [p.statement, ...p.hints]) {
     if (!text.trim()) fail(`${p.id}: empty text field`)
     if (!mathBalanced(text)) fail(`${p.id}: unbalanced $ in "${text.slice(0, 40)}…"`)
+    checkMath(p.id, text)
   }
 }
 
@@ -47,6 +60,7 @@ for (const s of solutions) {
   if (s.rubric.commonErrors.length < 2) fail(`${s.id}: rubric needs at least 2 common errors`)
   for (const text of [s.solution, s.answer ?? '']) {
     if (!mathBalanced(text)) fail(`${s.id}: unbalanced $ in solution or answer`)
+    checkMath(s.id, text)
   }
 }
 for (const id of ids) if (!solved.has(id)) fail(`${id}: no solution`)

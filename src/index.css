@@ -200,3 +200,345 @@ body {
   font-size: 0.7rem;
   font-weight: 700;
 }
+
+/* ---------- Shared controls ---------- */
+
+a {
+  color: inherit;
+}
+
+.brand {
+  text-decoration: none;
+}
+
+.problems a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 3px 0;
+  text-decoration: none;
+}
+
+.problems a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.problems li {
+  padding: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+:focus-visible {
+  outline: 3px solid var(--alert);
+  outline-offset: 2px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border: var(--line);
+  background: var(--surface);
+  box-shadow: 4px 4px 0 var(--ink);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--accent);
+}
+
+.btn:active:not(:disabled) {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.btn.primary {
+  background: var(--ink);
+  color: var(--accent);
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.note {
+  margin: 0 0 16px;
+  font-size: 0.85rem;
+}
+
+.loading {
+  padding: 48px 0;
+}
+
+.notice {
+  margin: 16px 0 0;
+  padding: 8px 12px;
+  border: var(--line);
+  background: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* ---------- Problem workspace ---------- */
+
+.workspace {
+  padding-top: 20px;
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.panel {
+  min-width: 0;
+  padding: 20px;
+  background: var(--surface);
+  border: var(--line);
+  box-shadow: var(--shadow);
+}
+
+.panel h1 {
+  margin: 12px 0 16px;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.problem-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.problem-meta .tags {
+  margin: 0;
+}
+
+.problem-meta .level {
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+/* Problem text is set in a serif so it reads like mathematics, not UI. */
+.rich {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.rich p {
+  margin: 0 0 14px;
+}
+
+.rich ul {
+  margin: 0 0 14px;
+  padding-left: 22px;
+}
+
+.rich li {
+  margin-bottom: 6px;
+}
+
+.math-display {
+  margin: 14px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0;
+}
+
+.hints {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: var(--line);
+}
+
+.hints .count {
+  margin-left: 8px;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.hint {
+  margin-bottom: 14px;
+  padding: 12px 14px 0;
+  border: var(--line);
+  border-left-width: 10px;
+  background: var(--bg);
+}
+
+.hint-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.hint .rich {
+  font-size: 0.98rem;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.step {
+  width: 100%;
+  padding: 12px;
+  border: var(--line);
+  background: var(--bg);
+}
+
+.step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.step-num {
+  padding: 1px 8px;
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.step-tools {
+  display: flex;
+  gap: 4px;
+}
+
+.step-tools button {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.step-tools button:hover:not(:disabled) {
+  background: var(--accent);
+}
+
+.step textarea {
+  display: block;
+  width: 100%;
+  min-height: 64px;
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.step-math {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+math-field {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 6px 8px;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 1.25rem;
+  --caret-color: var(--alert);
+  --selection-background-color: var(--accent);
+  --contains-highlight-background-color: transparent;
+}
+
+math-field:focus-within {
+  outline: 3px solid var(--alert);
+  outline-offset: 2px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: var(--line);
+}
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 36px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.nowrap {
+  white-space: nowrap;
+}

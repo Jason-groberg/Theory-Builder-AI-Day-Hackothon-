@@ -11,6 +11,8 @@
     "validate": "node scripts/validate-content.ts"
   },
   "dependencies": {
+    "katex": "^0.19.1",
+    "mathlive": "^0.111.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
