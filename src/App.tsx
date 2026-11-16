@@ -34,7 +34,7 @@ export default function App() {
       <main>
         <section className="hero">
           <h1>
-            Train the <em>thinking</em>, not the arithmetic.
+            Learn the Math and the <em>Path</em>
           </h1>
           <p>
             Apply theorems, choose proof techniques, and write real arguments. A tutor
