@@ -542,3 +542,123 @@ math-field:focus-within {
 .nowrap {
   white-space: nowrap;
 }
+
+/* ---------- Tutor ---------- */
+
+.level.solved {
+  background: var(--ok);
+  color: var(--ink);
+}
+
+.solution,
+.tutor {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: var(--line);
+}
+
+.answer {
+  margin-bottom: 14px;
+  padding: 12px 14px 0;
+  border: var(--line);
+  background: var(--accent);
+}
+
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 520px;
+  margin-bottom: 14px;
+  overflow-y: auto;
+}
+
+.thread:empty {
+  display: none;
+}
+
+.thread-marker {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.msg {
+  padding: 10px 12px 0;
+  border: var(--line);
+  background: var(--bg);
+}
+
+.msg-student {
+  margin-left: 32px;
+  background: var(--surface);
+  border-style: dashed;
+}
+
+.msg-tutor {
+  margin-right: 32px;
+  border-left-width: 10px;
+}
+
+.msg-who {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.msg .rich {
+  font-size: 0.98rem;
+  overflow-wrap: anywhere;
+}
+
+.msg-foot {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.verdict {
+  padding: 1px 8px;
+  border: 2px solid var(--ink);
+  background: var(--accent);
+}
+
+.verdict-correct {
+  background: var(--ok);
+}
+
+.verdict-gap,
+.verdict-not_an_attempt {
+  background: var(--alert);
+  color: #fff;
+}
+
+.verdict-unsure {
+  background: var(--surface);
+}
+
+.ask {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.ask textarea {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  resize: vertical;
+}

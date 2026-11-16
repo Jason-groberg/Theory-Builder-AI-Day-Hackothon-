@@ -99,18 +99,18 @@ Problem style per category, to keep things idea-driven:
 | Risk | Mitigation |
 |---|---|
 | AI mis-grades a valid but unusual proof | Rubric lists key ideas, not one path; verdicts are "correct / gap found / unsure", and "unsure" says so instead of guessing |
-| Tutor leaks the answer under pressure | Rules in the system prompt, plus a second lightweight check on replies for seed problems that blocks any reply containing the final answer |
+| Tutor leaks the answer under pressure | Rules in the system prompt, with student text treated as work to assess rather than instructions. A second automated check on replies is not built: it would break streaming |
 | AI-generated variants are wrong or unsolvable | Generate problem + full solution together, run an independent verification pass, discard failures, label variants "AI-generated" |
 | Long proofs are awkward in a visual equation editor | Step-list editor: each step is a prose box with an insertable math field, rather than one giant math field |
-| Attempt gating without accounts | Tracked in the browser; a determined user can bypass it. Acceptable for a preview |
-| API cost on a public URL | Per-IP rate limit in the functions, capped output tokens, mid-tier model for chat |
+| Attempt gating without accounts | Each reviewed attempt gets a server-signed receipt; the solution endpoint requires three distinct receipts or one for a correct attempt, so the browser cannot skip the gate |
+| API cost on a public URL | Best-effort per-IP rate limit in the functions and input size caps. Model is `claude-opus-5-5` (low effort for chat, medium for review) |
 
 ## Build order
 
 1. **Scaffold** — Vite app, Netlify config, `.env` ignored, deploy a hello page.
 2. **Content** — schema, then 30 seed problems with hints, solutions, rubrics; 5 primers per category as needed.
 3. **Problem workspace** — done: problem page, step editor with MathLive, hint ladder, saved drafts.
-4. **Tutor** — chat + attempt review functions, streaming UI, 3-attempt reveal.
+4. **Tutor** — done: attempt review, streaming chat, and the 3-attempt reveal enforced server-side with signed attempt receipts.
 5. **Hint ladder + skill map** — localStorage progress, mastery by topic/technique.
 6. **Visualizations** — one or two strong widgets per category (linear map on the plane, distribution sampler, secant→tangent, a draggable geometric construction, sampling-distribution simulator).
 7. **AI variants** — generate, verify, attach to a seed.

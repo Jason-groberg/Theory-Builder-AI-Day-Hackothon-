@@ -48,3 +48,51 @@ export function stepsToMarkdown(steps: Step[]): string {
     })
     .join('\n\n')
 }
+
+// ---------- Tutor progress ----------
+
+export type Verdict = 'correct' | 'incomplete' | 'gap' | 'unsure' | 'not_an_attempt'
+
+export interface ThreadItem {
+  id: string
+  role: 'student' | 'tutor'
+  kind: 'chat' | 'submission' | 'review'
+  text: string
+  verdict?: Verdict
+  /** For reviews: whether the attempt counts towards unlocking the solution. */
+  counted?: boolean
+}
+
+export interface Attempt {
+  work: string
+  verdict: Verdict
+  counted: boolean
+  /** Signed by the server; proves the attempt was reviewed. */
+  receipt: string | null
+}
+
+export interface RevealedSolution {
+  answer: string | null
+  solution: string
+}
+
+export interface Progress {
+  thread: ThreadItem[]
+  attempts: Attempt[]
+  solved: boolean
+  techniques: string[]
+  solution: RevealedSolution | null
+}
+
+export const ATTEMPTS_TO_REVEAL = 3
+
+const emptyProgress = (): Progress => ({ thread: [], attempts: [], solved: false, techniques: [], solution: null })
+
+export const loadProgress = (problemId: string): Progress => ({
+  ...emptyProgress(),
+  ...read<Partial<Progress>>(`tb:progress:${problemId}`, {}),
+})
+export const saveProgress = (problemId: string, progress: Progress) => write(`tb:progress:${problemId}`, progress)
+
+export const countedAttempts = (p: Progress) => p.attempts.filter((a) => a.counted).length
+export const canReveal = (p: Progress) => p.solved || countedAttempts(p) >= ATTEMPTS_TO_REVEAL
