@@ -33,7 +33,9 @@ export default function App() {
 
       <main>
         <section className="hero">
-          <h1>Train the thinking, not the arithmetic.</h1>
+          <h1>
+            Train the <em>thinking</em>, not the arithmetic.
+          </h1>
           <p>
             Apply theorems, choose proof techniques, and write real arguments. A tutor
             reviews your reasoning and guides you without handing over the answer.
@@ -41,10 +43,15 @@ export default function App() {
         </section>
 
         <section className="grid" aria-label="Categories">
-          {categories.map((c) => (
+          {categories.map((c, i) => (
             <article key={c.id} className="card">
-              <div className="symbol" aria-hidden="true">
-                {c.symbol}
+              <div className="card-head">
+                <div className="symbol" aria-hidden="true">
+                  {c.symbol}
+                </div>
+                <span className="index">
+                  {String(i + 1).padStart(2, '0')}/{String(categories.length).padStart(2, '0')}
+                </span>
               </div>
               <h2>{c.name}</h2>
               <p>{c.blurb}</p>
@@ -53,7 +60,7 @@ export default function App() {
                   <li key={t}>{t}</li>
                 ))}
               </ul>
-              <span className="soon">5 problems · coming next</span>
+              <span className="soon">5 problems → coming next</span>
             </article>
           ))}
         </section>

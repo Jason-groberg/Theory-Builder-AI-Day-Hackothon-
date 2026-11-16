@@ -4,6 +4,7 @@ export type CategoryId =
   | 'calculus'
   | 'geometry'
   | 'statistics'
+  | 'number-theory'
 
 export interface Category {
   id: CategoryId
@@ -48,5 +49,12 @@ export const categories: Category[] = [
     symbol: 'σ',
     blurb: 'Judge estimators and tests by what they can and cannot show.',
     techniques: ['Bias and variance', 'Sampling distributions', 'Test design', 'Interpretation'],
+  },
+  {
+    id: 'number-theory',
+    name: 'Number Theory',
+    symbol: 'ℤ',
+    blurb: 'Work modulo the right number and let divisibility force the conclusion.',
+    techniques: ['Modular arithmetic', 'Divisibility', 'Infinite descent', 'Pigeonhole'],
   },
 ]

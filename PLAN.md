@@ -13,12 +13,13 @@ no accounts. Everything serves the core loop below.
 |---|---|
 | Hosting | Netlify (static site + serverless functions) |
 | Scope | Preview of the core application only; no auth or user systems |
-| Categories | Probability Theory / Data Science, Linear Algebra, Calculus, Geometry, Statistics |
-| Problems | Hybrid: 5 curated seeds per category (25 total), ordered by increasing difficulty, plus AI-generated variants |
+| Categories | Probability Theory / Data Science, Linear Algebra, Calculus, Geometry, Statistics, Number Theory |
+| Problems | Hybrid: 5 curated seeds per category (30 total), ordered by increasing difficulty, plus AI-generated variants |
 | Submission | Free-form work reviewed by the AI tutor |
 | Math input | Visual equation editor (no LaTeX knowledge needed) |
 | Solution reveal | Unlocks only after 3 *different* attempts |
 | Tutor AI | Claude, via `ANTHROPIC_API_KEY` in the environment |
+| Visual style | Brutalist: monospace type, heavy borders, hard shadows, no rounding |
 | Extras | Interactive visualizations, progressive hint ladder, skill map, theory primers |
 
 ## The core loop
@@ -77,6 +78,8 @@ Problem style per category, to keep things idea-driven:
 - **Geometry:** synthetic proofs, invariants, transformations, angle chasing.
 - **Statistics:** estimator bias/variance, sufficiency intuition, test design,
   interpreting what a result does and does not show.
+- **Number Theory:** modular arithmetic, divisibility arguments, infinite
+  descent, pigeonhole, proofs about primes rather than long factorizations.
 
 ## Tutor design
 
@@ -102,7 +105,7 @@ Problem style per category, to keep things idea-driven:
 ## Build order
 
 1. **Scaffold** — Vite app, Netlify config, `.env` ignored, deploy a hello page.
-2. **Content** — schema, then 25 seed problems with hints, solutions, rubrics; 5 primers per category as needed.
+2. **Content** — schema, then 30 seed problems with hints, solutions, rubrics; 5 primers per category as needed.
 3. **Problem workspace** — category picker, problem view, step editor with MathLive.
 4. **Tutor** — chat + attempt review functions, streaming UI, 3-attempt reveal.
 5. **Hint ladder + skill map** — localStorage progress, mastery by topic/technique.
