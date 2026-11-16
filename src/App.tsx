@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { categories } from './content/categories'
+import { categories } from './content/categories.ts'
+import { problemsIn } from './content/problems/index.ts'
 
 type TutorStatus = 'checking' | 'ready' | 'no-key' | 'offline'
 
@@ -60,7 +61,14 @@ export default function App() {
                   <li key={t}>{t}</li>
                 ))}
               </ul>
-              <span className="soon">5 problems → coming next</span>
+              <ol className="problems">
+                {problemsIn(c.id).map((p) => (
+                  <li key={p.id}>
+                    <span className="level">L{p.level}</span>
+                    {p.title}
+                  </li>
+                ))}
+              </ol>
             </article>
           ))}
         </section>

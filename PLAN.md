@@ -46,7 +46,7 @@ no accounts. Everything serves the core loop below.
   - `generate-variant` — a new problem modeled on a seed, with solution and hints.
   - `reveal-solution` — returns the vetted solution once 3 distinct attempts exist.
 - **Content:** problems as typed data files. Statements, hints, and primers ship to
-  the browser; **solutions and rubrics live only in the functions bundle** so the
+  the browser; **solutions and rubrics live only in `server/`, bundled into the functions** so the
   answer is not sitting in the page source.
 
 ```
@@ -54,8 +54,11 @@ src/
   content/        problems (public part), primers, skill taxonomy
   components/     ProblemView, StepEditor, TutorPanel, HintLadder, SkillMap, viz/
   lib/            storage, api client, types
+server/
+  solutions/      vetted solutions + rubrics (server only, never imported by src/)
+scripts/
+  validate-content.ts   checks every problem has a solution, levels 1-5, no leaks
 netlify/functions/
-  _solutions/     vetted solutions + rubrics (server only)
   tutor-chat.ts  review-attempt.ts  generate-variant.ts  reveal-solution.ts
 ```
 

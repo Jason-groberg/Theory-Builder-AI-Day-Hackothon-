@@ -177,11 +177,26 @@ body {
   text-transform: uppercase;
 }
 
-.soon {
-  margin-top: auto;
-  padding-top: 10px;
+.problems {
+  margin: auto 0 0;
+  padding: 10px 0 0;
   border-top: var(--line);
-  font-size: 0.75rem;
+  list-style: none;
+  font-size: 0.82rem;
+}
+
+.problems li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 3px 0;
+}
+
+.level {
+  flex: none;
+  padding: 0 4px;
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 0.7rem;
   font-weight: 700;
-  text-transform: uppercase;
 }
