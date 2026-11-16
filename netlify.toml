@@ -2,6 +2,10 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  # The content check runs TypeScript directly with Node, which needs Node 24.
+  NODE_VERSION = "24"
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
