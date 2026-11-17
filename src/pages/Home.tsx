@@ -45,6 +45,26 @@ export default function Home() {
             </ol>
           </article>
         ))}
+
+        <a className="card lab-card" href="#/lab">
+          <div className="card-head">
+            <div className="symbol" aria-hidden="true">
+              ⚑
+            </div>
+            <span className="index">LAB</span>
+          </div>
+          <h2>Agent Engineer Lab</h2>
+          <p>
+            Switch sides. Try to talk a math tutor into accepting a wrong answer, against three levels of
+            defense.
+          </p>
+          <ul className="tags">
+            <li>Prompt injection</li>
+            <li>Guardrails</li>
+            <li>Red teaming</li>
+          </ul>
+          <span className="enter">Enter the lab →</span>
+        </a>
       </section>
     </main>
   )

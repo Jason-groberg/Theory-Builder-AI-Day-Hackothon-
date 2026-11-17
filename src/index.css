@@ -662,3 +662,201 @@ math-field:focus-within {
   line-height: 1.4;
   resize: vertical;
 }
+
+/* ---------- Agent Engineer Lab ---------- */
+
+.lab-card {
+  background: var(--ink);
+  color: var(--bg);
+  text-decoration: none;
+}
+
+.lab-card .symbol {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.lab-card .tags li {
+  border-color: var(--bg);
+  background: transparent;
+}
+
+.lab-card:hover {
+  background: var(--ink);
+  box-shadow: 9px 9px 0 var(--alert);
+}
+
+.lab-card .enter {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 3px solid var(--bg);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.lab-intro {
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+
+.lab-intro h1 {
+  margin: 0 0 12px;
+  font-size: clamp(1.8rem, 6vw, 3.2rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.lab-intro h1 em {
+  font-style: normal;
+  background: var(--accent);
+  padding: 0 0.12em;
+}
+
+.lab-intro p {
+  margin: 0;
+  padding-left: 14px;
+  border-left: 6px solid var(--ink);
+}
+
+.lab-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 0;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.choice {
+  padding: 4px 10px;
+  border: var(--line);
+  background: var(--surface);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.choice.on,
+.defense.on {
+  background: var(--accent);
+}
+
+.mission {
+  padding: 12px 14px;
+  border: var(--line);
+  border-left-width: 10px;
+  background: var(--bg);
+}
+
+.mission .note {
+  margin: 0;
+}
+
+.defenses {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.defense {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 10px 12px;
+  border: var(--line);
+  background: var(--surface);
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.defense strong {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.lab-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.lab .thread {
+  max-height: 640px;
+}
+
+.lab-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plain {
+  margin: 0 0 10px;
+  font-family: Georgia, 'Times New Roman', serif;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.lab-won {
+  background: var(--ok);
+}
+
+.lab-blocked {
+  background: var(--ink);
+  color: var(--accent);
+}
+
+.lab-resisted,
+.lab-legit {
+  background: var(--surface);
+}
+
+.lab-unclear,
+.lab-unavailable {
+  background: var(--alert);
+  color: #fff;
+}
+
+.lab-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lab-form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.debug {
+  margin-bottom: 10px;
+  font-size: 0.75rem;
+}
+
+.debug ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}

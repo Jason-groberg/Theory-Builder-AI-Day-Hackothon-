@@ -8,7 +8,9 @@
     "build": "npm run validate && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "validate": "node scripts/validate-content.ts"
+    "validate": "node scripts/validate-content.ts",
+    "test": "node --test \"server/**/*.test.ts\"",
+    "lab:eval": "node --env-file=.env scripts/lab-eval.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.9.0",

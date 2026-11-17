@@ -5,6 +5,7 @@ import Home from './pages/Home.tsx'
 
 // The workspace pulls in the math editor, so it loads only when a problem opens.
 const ProblemPage = lazy(() => import('./pages/ProblemPage.tsx'))
+const LabPage = lazy(() => import('./pages/LabPage.tsx'))
 
 type TutorStatus = 'checking' | 'ready' | 'no-key' | 'offline'
 
@@ -44,13 +45,9 @@ export default function App() {
         <span className={`status status-${status}`}>{statusText[status]}</span>
       </header>
 
-      {problem ? (
-        <Suspense fallback={<p className="note loading">Loading workspace…</p>}>
-          <ProblemPage key={problem.id} problem={problem} />
-        </Suspense>
-      ) : (
-        <Home />
-      )}
+      <Suspense fallback={<p className="note loading">Loading…</p>}>
+        {problem ? <ProblemPage key={problem.id} problem={problem} /> : route === 'lab' ? <LabPage /> : <Home />}
+      </Suspense>
     </div>
   )
 }

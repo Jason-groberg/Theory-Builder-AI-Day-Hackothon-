@@ -5,6 +5,7 @@ import { createHash, createHmac, timingSafeEqual } from 'node:crypto'
 import { getProblem } from '../src/content/problems/index.ts'
 import { techniques } from '../src/content/techniques.ts'
 import type { Problem, Solution } from '../src/content/types.ts'
+import { HttpError, rateLimit, readPost, text } from './http.ts'
 import { getSolution } from './solutions/index.ts'
 
 export const MODEL = 'claude-opus-5-5'
@@ -24,24 +25,12 @@ export const LIMITS = { work: 8000, message: 2000, messages: 40, priorAttempts: 
 
 // ---------- Request guards ----------
 
-export class HttpError extends Error {
-  status: number
-  constructor(status: number, message: string) {
-    super(message)
-    this.status = status
-  }
-}
+export { HttpError, rateLimit, text }
 
 export async function readJson(req: Request): Promise<Record<string, unknown>> {
-  if (req.method !== 'POST') throw new HttpError(405, 'Use POST.')
+  const body = await readPost(req)
   if (!process.env.ANTHROPIC_API_KEY) throw new HttpError(503, 'The tutor has no API key configured.')
-  try {
-    const body = await req.json()
-    if (body && typeof body === 'object') return body as Record<string, unknown>
-  } catch {
-    // fall through
-  }
-  throw new HttpError(400, 'Request body must be JSON.')
+  return body
 }
 
 export function loadProblem(id: unknown): { problem: Problem; solution: Solution } {
@@ -49,27 +38,6 @@ export function loadProblem(id: unknown): { problem: Problem; solution: Solution
   const solution = problem && getSolution(problem.id)
   if (!problem || !solution) throw new HttpError(404, 'Unknown problem.')
   return { problem, solution }
-}
-
-export function text(value: unknown, max: number, name: string): string {
-  if (typeof value !== 'string') throw new HttpError(400, `${name} must be text.`)
-  if (value.length > max) throw new HttpError(413, `${name} is too long (limit ${max} characters).`)
-  return value
-}
-
-// Best-effort limit per server instance. Enough to blunt abuse of a public demo;
-// not a substitute for a real quota.
-const WINDOW_MS = 10 * 60 * 1000
-const MAX_REQUESTS = 40
-const hits = new Map<string, number[]>()
-
-export function rateLimit(ip: string | undefined) {
-  const key = ip ?? 'unknown'
-  const now = Date.now()
-  const recent = (hits.get(key) ?? []).filter((t) => now - t < WINDOW_MS)
-  if (recent.length >= MAX_REQUESTS) throw new HttpError(429, 'Too many requests. Try again in a few minutes.')
-  recent.push(now)
-  hits.set(key, recent)
 }
 
 export function errorResponse(err: unknown): Response {
