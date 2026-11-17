@@ -8,6 +8,7 @@ import { problemsIn } from '../content/problems/index.ts'
 import { techniques } from '../content/techniques.ts'
 import type { Problem } from '../content/types.ts'
 import { postJson, streamTutor } from '../lib/api.ts'
+import { recentWithinBudget, TUTOR_LIMITS } from '../lib/input-limits.ts'
 import {
   ATTEMPTS_TO_REVEAL,
   canReveal,
@@ -71,6 +72,10 @@ export default function ProblemPage({ problem }: { problem: Problem }) {
 
   const submit = async () => {
     const work = stepsToMarkdown(steps)
+    if (work.length > TUTOR_LIMITS.work) {
+      setNotice(`Your work is too long (limit ${TUTOR_LIMITS.work} characters).`)
+      return
+    }
     const attemptNumber = progress.attempts.length + 1
     setBusy('reviewing')
     setNotice('')
@@ -81,7 +86,7 @@ export default function ProblemPage({ problem }: { problem: Problem }) {
     try {
       await streamTutor(
         'review-attempt',
-        { problemId: problem.id, work, hintsRevealed, priorAttempts: progress.attempts.map((a) => a.work) },
+        { problemId: problem.id, work, hintsRevealed, priorAttempts: recentWithinBudget(progress.attempts.map((a) => a.work), TUTOR_LIMITS.priorAttempts, TUTOR_LIMITS.history - work.length, (s) => s) },
         (event) => {
           if (event.type !== 'result') return
           const verdict = event.verdict as Verdict
@@ -106,6 +111,11 @@ export default function ProblemPage({ problem }: { problem: Problem }) {
   }
 
   const ask = async (question: string) => {
+    const work = stepsToMarkdown(steps)
+    if (work.length > TUTOR_LIMITS.work) {
+      setNotice(`Your work is too long (limit ${TUTOR_LIMITS.work} characters).`)
+      return
+    }
     const asked = item({ role: 'student', kind: 'chat', text: question })
     const reply = item({ role: 'tutor', kind: 'chat', text: '' })
     const history = [...progress.thread, asked]
@@ -115,7 +125,7 @@ export default function ProblemPage({ problem }: { problem: Problem }) {
     try {
       await streamTutor(
         'tutor-chat',
-        { problemId: problem.id, work: stepsToMarkdown(steps), hintsRevealed, messages: toMessages(history) },
+        { problemId: problem.id, work, hintsRevealed, messages: recentWithinBudget(toMessages(history), TUTOR_LIMITS.messages, TUTOR_LIMITS.history - work.length, (m) => m.content) },
         (event) => {
           if (event.type !== 'delta') return
           updateProgress((p) => ({
@@ -139,7 +149,7 @@ export default function ProblemPage({ problem }: { problem: Problem }) {
     try {
       const solution = await postJson<RevealedSolution>('reveal-solution', {
         problemId: problem.id,
-        receipts: progress.attempts.map((a) => a.receipt).filter(Boolean),
+        receipts: progress.attempts.map((a) => a.receipt).filter(Boolean).slice(-50),
       })
       updateProgress((p) => ({ ...p, solution }))
     } catch (err) {

@@ -5,7 +5,7 @@ import { createHash, createHmac, timingSafeEqual } from 'node:crypto'
 import { getProblem } from '../src/content/problems/index.ts'
 import { techniques } from '../src/content/techniques.ts'
 import type { Problem, Solution } from '../src/content/types.ts'
-import { HttpError, rateLimit, readPost, text } from './http.ts'
+import { HttpError, httpErrorResponse, rateLimit, readPost, text } from './http.ts'
 import { getSolution } from './solutions/index.ts'
 
 export const MODEL = 'claude-opus-5-5'
@@ -21,7 +21,7 @@ export const FALLBACK: { betas: Anthropic.Beta.AnthropicBeta[]; fallbacks: 'defa
 
 export const client = new Anthropic()
 
-export const LIMITS = { work: 8000, message: 2000, messages: 40, priorAttempts: 5 }
+export { TUTOR_LIMITS as LIMITS } from '../src/lib/input-limits.ts'
 
 // ---------- Request guards ----------
 
@@ -41,7 +41,7 @@ export function loadProblem(id: unknown): { problem: Problem; solution: Solution
 }
 
 export function errorResponse(err: unknown): Response {
-  if (err instanceof HttpError) return Response.json({ error: err.message }, { status: err.status })
+  if (err instanceof HttpError) return httpErrorResponse(err)
   console.error(err)
   return Response.json({ error: describeError(err) }, { status: 502 })
 }

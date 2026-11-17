@@ -8,16 +8,19 @@ import {
   rateLimit,
   readJson,
   verifyReceipt,
+  text,
 } from '../../server/tutor.ts'
 
 export default async (req: Request, context?: { ip?: string }) => {
   try {
     const body = await readJson(req)
-    rateLimit(context?.ip)
+    await rateLimit(context?.ip)
     const { problem, solution } = loadProblem(body.problemId)
 
-    const receipts = (Array.isArray(body.receipts) ? body.receipts.slice(0, 50) : [])
-      .map(verifyReceipt)
+    if (!Array.isArray(body.receipts) || body.receipts.length > 50)
+      throw new HttpError(400, 'Provide at most 50 attempt receipts.')
+    const receipts = body.receipts
+      .map((receipt) => verifyReceipt(text(receipt, 1024, 'An attempt receipt')))
       .filter((r) => r !== null && r.p === problem.id)
     const distinct = new Set(receipts.map((r) => r!.h)).size
     const solved = receipts.some((r) => r!.ok)

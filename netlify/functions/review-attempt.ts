@@ -2,6 +2,7 @@
 // "result" event with the verdict, feedback and a signed receipt.
 import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod'
 import { z } from 'zod'
+import { parsePriorAttempts } from '../../server/tutor-input.ts'
 import {
   client,
   errorResponse,
@@ -28,13 +29,11 @@ const Review = z.object({
 export default async (req: Request, context?: { ip?: string }) => {
   try {
     const body = await readJson(req)
-    rateLimit(context?.ip)
+    await rateLimit(context?.ip)
     const { problem, solution } = loadProblem(body.problemId)
     const work = text(body.work, LIMITS.work, 'Your work').trim()
     if (!work) throw new HttpError(400, 'There is no work to review yet.')
-    const prior = (Array.isArray(body.priorAttempts) ? body.priorAttempts : [])
-      .slice(-LIMITS.priorAttempts)
-      .map((p) => text(p, LIMITS.work, 'A prior attempt'))
+    const prior = parsePriorAttempts(body.priorAttempts, work)
     const hintsRevealed = Math.min(3, Math.max(0, Number(body.hintsRevealed) || 0))
 
     const priorBlock = prior.length

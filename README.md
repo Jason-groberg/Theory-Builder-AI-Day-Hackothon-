@@ -50,4 +50,20 @@ The live evaluation saves local evidence in ignored `lab-results/` and exits
 unsuccessfully if judge checks or provider calls fail. Results apply only to the
 tested prompts/models. All levels remain selectable; none is promised to be
 beatable or unbreakable. Signed transcripts prevent editing but are replayable;
-per-instance rate limits are best-effort burst protection, not durable quotas.
+replays still consume the shared IP quota described below.
+
+## Request and input limits
+
+The math tutor allows **10 requests per IP address in any 10 minutes**, shared
+across chat, work review, and solution reveal. The lab has a separate **10 requests
+per IP per 10 minutes**, shared across levels and resets; screened submissions
+count too. Shared Netlify Blobs records use atomic updates, so concurrent requests,
+function restarts, and deployments cannot reset these quotas. Storage failures
+stop requests before AI calls. Local Vite development uses an in-memory counter.
+Users sharing a public IP share a quota; this is not an account or global spend cap.
+
+Oversized inputs are rejected before AI calls: tutor questions 2,000 characters,
+work 8,000, and combined work/history 16,000; lab messages 4,000 and conversation
+16,000. Tutor histories allow 40 messages or five prior attempts. Actual streamed
+JSON bodies are capped at 64 KiB for the tutor and 128 KiB for the lab. A quota
+failure returns HTTP 429 with a `Retry-After` header and a visible retry message.

@@ -10,6 +10,8 @@ async function failure(response: Response): Promise<Error> {
   } catch {
     // Not JSON: fall through to the generic message.
   }
+  if (response.status === 429) return new Error('Limit reached: 10 requests per 10 minutes. Please wait before trying again.')
+  if (response.status === 413) return new Error('This request is too large. Shorten your message or work and try again.')
   return new Error(
     response.status === 404 ? 'The tutor is not available in this environment.' : 'The tutor request failed.',
   )

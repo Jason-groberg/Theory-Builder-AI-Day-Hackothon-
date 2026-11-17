@@ -38,6 +38,7 @@ export function TutorThread({ thread, busy, onAsk }: Props) {
   return (
     <section className="tutor" aria-label="Tutor">
       <h2>Tutor</h2>
+      <p className="note">10 requests per 10 minutes per IP, shared with work reviews and solution reveals. Questions: up to 2,000 characters; work: up to 8,000.</p>
 
       {thread.length === 0 && !busy && (
         <p className="note">

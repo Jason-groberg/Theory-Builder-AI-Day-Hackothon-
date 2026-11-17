@@ -14,6 +14,7 @@ function netlifyFunctionsDev(): Plugin {
     apply: 'serve',
     configureServer(server) {
       Object.assign(process.env, loadEnv('development', process.cwd(), ''))
+      process.env.THEORY_BUILDER_LOCAL_DEV = '1'
 
       server.middlewares.use('/api', async (req, res) => {
         const name = (req.url ?? '').split('?')[0].replace(/^\/+|\/+$/g, '')

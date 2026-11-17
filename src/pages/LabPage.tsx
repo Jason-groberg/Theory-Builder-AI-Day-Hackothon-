@@ -176,6 +176,8 @@ export default function LabPage() {
             </span>
           </div>
 
+          <p className="note">10 submissions per 10 minutes per IP across all lab levels and resets. Blocked attempts count toward this limit.</p>
+
           <div className="thread" aria-live="polite">
             {run.entries.map((e) => (
               <div key={e.attemptId} className="lab-entry">

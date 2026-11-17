@@ -7,7 +7,7 @@ research prototype; these results are for policy 2.0 in this repository.
 
 ## Automated checks
 
-- 20 pipeline regression tests pass (`npm test`).
+- 32 regression tests pass (`npm test`), including 12 request/input guard tests.
 - Lint passes (`npm run lint`).
 - Content validation passes: 30 problems, 30 solutions, six categories.
 - TypeScript and production Vite build pass (`npm run build`).
@@ -61,3 +61,12 @@ The math-editor chunk still triggers Vite's size advisory; it is lazy-loaded and
 the build succeeds. The demo's per-instance rate limiting is not a durable quota,
 and signed transcripts prevent editing but not replay. Model judgments remain
 probabilistic. These limitations do not prevent the tested demonstration flows.
+
+## Stricter request guards
+
+The new tests cover rolling-window boundaries, shared tutor/lab buckets, IP
+isolation, concurrent claims, storage failures, streamed byte limits, malformed
+bodies, and per-message/aggregate input limits. Lint and production build pass.
+A real Netlify Blobs concurrency check accepted exactly 10 of 15 simultaneous
+requests and rejected the other five with HTTP 429; its disposable record was
+removed. The previous live model evaluation above was not rerun for this change.
