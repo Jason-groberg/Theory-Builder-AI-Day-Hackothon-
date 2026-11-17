@@ -37,7 +37,7 @@ export default function Home() {
         </a>
 
         {categories.map((c, i) => (
-          <article key={c.id} className="card">
+          <article key={c.id} className="card category-card">
             <div className="card-head">
               <div className="symbol" aria-hidden="true">
                 {c.symbol}
@@ -46,7 +46,15 @@ export default function Home() {
                 {String(i + 1).padStart(2, '0')}/{String(categories.length).padStart(2, '0')}
               </span>
             </div>
-            <h2>{c.name}</h2>
+            <h2>
+              <a
+                className="category-start"
+                href={problemHref(problemsIn(c.id)[0].id)}
+                aria-label={`Start ${c.name} at level 1`}
+              >
+                {c.name}
+              </a>
+            </h2>
             <p>{c.blurb}</p>
             <ul className="tags">
               {c.techniques.map((t) => (
